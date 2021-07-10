@@ -1,0 +1,52 @@
+matrix:
+  include:
+    - os: linux
+      language: android
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-28.0.3
+          - android-29
+          - sys-img-armeabi-v7a-google_apis-25
+          - extra-android-m2repository
+          - extra-google-m2repository
+          - extra-google-android-support
+      jdk: oraclejdk8
+      sudo: false
+      addons:
+        chrome: stable
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        - git clone https://github.com/flutter/flutter.git -b stable
+        - export PATH="$PATH:`pwd`/flutter/bin"
+        - flutter precache
+      script:
+        - flutter doctor
+        - flutter doctor --android-licenses
+        - flutter doctor
+        - export PATH="$PATH:flutter/bin"
+        - echo $PATH
+        - which flutter
+        - flutter config --no-analytics
+        - flutter pub get
+        - flutter build web
+        - flutter run -d chrome --web-port 5555
+        - curl http://localhost/5555
+
+cache:
+  directories:
+    - $HOME/.pub-cache
+
+notifications:
+  email: false

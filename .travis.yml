@@ -1,42 +1,18 @@
-matrix:
-  include:
-    - os: linux
-      language: android
-      android:
-        components:
-          - tools
-          - platform-tools
-          - build-tools-28.0.3
-          - android-29
-      addons:
-        chrome: stable
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      before_install:
-        - yes | sdkmanager "platforms;android-29"
-      install:
-        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
-        - git clone https://github.com/flutter/flutter.git -b stable
-        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
-      script:
-        - flutter precache
-        - flutter doctor
-        - flutter doctor --android-licenses
-        - which flutter
-        - flutter config --no-analytics
-        # - flutter pub get
-        - flutter build web
-        - flutter run -d chrome --web-port 5555
-        - curl http://localhost/5555
+language: dart
+dart:
+  - stable
 
-cache:
-  directories:
-    - $HOME/.pub-cache
+install:
+  # https://flutter.dev/docs/get-started/web
+  - echo "Configure Flutter"
+  - git clone https://github.com/flutter/flutter.git -b beta
+  - export PATH="$PATH:`pwd`/flutter/bin"
+  - flutter upgrade
+  - flutter config --enable-web
+  - flutter doctor
 
-notifications:
-  email: false
+script:
+  - echo "Building..."
+  - flutter pub get
+  - flutter build web
+  - ls

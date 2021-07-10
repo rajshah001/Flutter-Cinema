@@ -13,6 +13,5 @@ install:
 
 script:
   - echo "Building..."
-  - flutter pub get
   - flutter build web
   - ls

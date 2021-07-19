@@ -1,6 +1,6 @@
 language: dart
 dart:
-  - stable
+  - "2.12.3"
 
 install:
   # https://flutter.dev/docs/get-started/web
@@ -8,6 +8,7 @@ install:
   - git clone https://github.com/flutter/flutter.git -b beta
   - export PATH="$PATH:`pwd`/flutter/bin"
   - flutter upgrade
+  - flutter version 2.0.6
   - flutter config --enable-web
   - flutter doctor
 

@@ -5,10 +5,9 @@ dart:
 install:
   # https://flutter.dev/docs/get-started/web
   - echo "Configure Flutter"
-  - git clone https://github.com/flutter/flutter.git -b beta
+  - wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.0.6-stable.tar.xz
+  - tar xf flutter_linux_2.0.6-stable.tar.xz
   - export PATH="$PATH:`pwd`/flutter/bin"
-  - flutter upgrade
-  - flutter version 2.0.6
   - flutter config --enable-web
   - flutter doctor
 

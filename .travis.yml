@@ -8,6 +8,7 @@ install:
   - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
   - unzip awscliv2.zip
   - sudo ./aws/install
+  - aws --version
   - echo "Configure Flutter"
   - wget https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.0.6-stable.tar.xz
   - tar xf flutter_linux_2.0.6-stable.tar.xz
